@@ -1,5 +1,8 @@
 [build-system]
-requires = ["hatchling"]
+requires = [
+  "hatchling",
+  "hatch-semver"
+  ]
 build-backend = "hatchling.build"
 
 [project]
@@ -35,6 +38,8 @@ Source = "https://github.com/cedricvidal/dotenv-azd"
 
 [tool.hatch.version]
 path = "src/dotenv_azd/__about__.py"
+validate-bump = true
+scheme = "semver"
 
 [tool.hatch.envs.types]
 extra-dependencies = [
