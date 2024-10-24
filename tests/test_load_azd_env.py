@@ -18,5 +18,6 @@ def test_load_azd_env(tmp_path: Path) -> None:
         config.write("name: dotenv-azd-test\n")
 
     _azd_env_new("test", tmp_path)
-    load_azd_env(cwd=tmp_path)
+    var_set = load_azd_env(cwd=tmp_path)
     assert getenv('AZURE_ENV_NAME') is not None
+    assert var_set
