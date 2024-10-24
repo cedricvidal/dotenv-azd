@@ -1,19 +1,24 @@
+from __future__ import annotations
+
 import subprocess
 from os import PathLike
-from typing import Optional, TypeAlias
+from typing import TypeAlias
 
 from dotenv import load_dotenv
 
 StrOrBytesPath: TypeAlias = str | bytes | PathLike
 
-def _azd_env_get_values(cwd: Optional[StrOrBytesPath] = None) -> str:
-    result = subprocess.run(['azd', 'env', 'get-values'], capture_output=True, text=True, cwd=cwd, check=False)
+class AzdEnvGetValuesError(Exception):
+    pass
+
+def _azd_env_get_values(cwd: StrOrBytesPath | None = None) -> str:
+    result = subprocess.run(['/usr/bin/env', 'azd', 'env', 'get-values'], capture_output=True, text=True, cwd=cwd, check=False)
     if result.returncode:
-        raise Exception("Failed to get azd environment values because of: " + result.stdout.strip())
+        raise AzdEnvGetValuesError("Failed to get azd environment values because of: " + result.stdout.strip())
     return result.stdout
 
 def load_azd_env(
-        cwd: Optional[StrOrBytesPath] = None,
+        cwd: StrOrBytesPath | None = None,
         override: bool = False,
         ) -> bool:
 
@@ -26,8 +31,6 @@ def load_azd_env(
     Returns:
         Bool: True if at least one environment variable is set else False
 
-    If both `dotenv_path` and `stream` are `None`, `find_dotenv()` is used to find the
-    .env file.
     """
 
     from io import StringIO

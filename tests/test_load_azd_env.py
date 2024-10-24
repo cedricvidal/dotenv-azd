@@ -2,10 +2,13 @@ import subprocess
 from pathlib import Path
 
 
+class AzdEnvNewError(Exception):
+    pass
+
 def _azd_env_new(name: str, cwd: Path) -> str:
     result = subprocess.run(['azd', 'env', 'new', name], capture_output=True, text=True, cwd=cwd, check=False)
     if result.returncode:
-        raise Exception("Failed to create azd env because of: " + result.stderr)
+        raise AzdEnvNewError("Failed to create azd env because of: " + result.stderr)
     return result.stdout
 
 
