@@ -19,20 +19,35 @@ pip install dotenv-azd
 
 ## Usage
 
-Create a new AZD env if you don't have one yet:
+Create a new AZD env if you don't have one yet and set an initial variable value:
 
 ```
-azd env new
+azd init
+azd env set VAR1 OVERRIDE
 ```
 
 In your Python code:
+
 ```
 from dotenv_azd import load_azd_env
-from os import getenv
+from os import getenv, environ
+
+environ['VAR1'] = 'INITIAL'
 
 load_azd_env()
-print(getenv('AZURE_ENV_NAME'))
+
+print(getenv('AZURE_ENV_NAME')) # prints 'test', loaded from azd env
+
+print(getenv('VAR1')) # prints 'INITIAL', was already in Python env
 ```
+
+**TIP**: You can also override variables in Python env:
+
+```
+load_azd_env(override=True)
+print(getenv('VAR1')) # prints 'OVERRIDE', loaded from azd env, overriding Python env
+```
+
 
 ## License
 
