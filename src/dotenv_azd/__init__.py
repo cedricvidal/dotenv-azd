@@ -8,20 +8,25 @@ from dotenv import load_dotenv
 
 StrOrBytesPath: TypeAlias = str | bytes | PathLike
 
+
 class AzdEnvGetValuesError(Exception):
     pass
 
+
 def _azd_env_get_values(cwd: StrOrBytesPath | None = None) -> str:
-    result = subprocess.run(['/usr/bin/env', 'azd', 'env', 'get-values'], capture_output=True, text=True, cwd=cwd, check=False)
+    result = subprocess.run(
+        ["/usr/bin/env", "azd", "env", "get-values"], capture_output=True, text=True, cwd=cwd, check=False
+    )
     if result.returncode:
         raise AzdEnvGetValuesError("Failed to get azd environment values because of: " + result.stdout.strip())
     return result.stdout
 
-def load_azd_env(
-        cwd: StrOrBytesPath | None = None,
-        override: bool = False,
-        ) -> bool:
 
+def load_azd_env(
+    cwd: StrOrBytesPath | None = None,
+    *,
+    override: bool = False,
+) -> bool:
     """Reads azd env variables and then load all the variables found as environment variables.
 
     Parameters:
@@ -34,9 +39,10 @@ def load_azd_env(
     """
 
     from io import StringIO
+
     env_values = _azd_env_get_values(cwd)
     config = StringIO(env_values)
     return load_dotenv(
         stream=config,
         override=override,
-        )
+    )
