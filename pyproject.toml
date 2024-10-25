@@ -10,7 +10,7 @@ name = "dotenv-azd"
 dynamic = ["version"]
 description = 'Python dotenv adapter that loads dotenv key value pairs from Azure Developer CLI (azd)'
 readme = "README.md"
-requires-python = ">=3.8"
+requires-python = ">=3.9"
 license = "MIT"
 keywords = []
 authors = [
@@ -19,7 +19,6 @@ authors = [
 classifiers = [
   "Development Status :: 4 - Beta",
   "Programming Language :: Python",
-  "Programming Language :: Python :: 3.8",
   "Programming Language :: Python :: 3.9",
   "Programming Language :: Python :: 3.10",
   "Programming Language :: Python :: 3.11",
@@ -47,6 +46,9 @@ extra-dependencies = [
 ]
 [tool.hatch.envs.types.scripts]
 check = "mypy --install-types --non-interactive {args:src/dotenv_azd tests}"
+
+[[tool.hatch.envs.hatch-test.matrix]]
+python = ["3.12", "3.11", "3.10", "3.9"]
 
 [tool.coverage.run]
 source_pkgs = ["dotenv_azd", "tests"]

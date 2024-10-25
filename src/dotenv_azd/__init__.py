@@ -1,19 +1,19 @@
 from __future__ import annotations
 
 import subprocess
-from os import PathLike
-from typing import TypeAlias
+from typing import TYPE_CHECKING
 
 from dotenv import load_dotenv
 
-StrOrBytesPath: TypeAlias = str | bytes | PathLike
+if TYPE_CHECKING:
+    from os import PathLike
 
 
 class AzdEnvGetValuesError(Exception):
     pass
 
 
-def _azd_env_get_values(cwd: StrOrBytesPath | None = None) -> str:
+def _azd_env_get_values(cwd: str | bytes | PathLike | None = None) -> str:
     result = subprocess.run(
         ["/usr/bin/env", "azd", "env", "get-values"], capture_output=True, text=True, cwd=cwd, check=False
     )
@@ -23,7 +23,7 @@ def _azd_env_get_values(cwd: StrOrBytesPath | None = None) -> str:
 
 
 def load_azd_env(
-    cwd: StrOrBytesPath | None = None,
+    cwd: str | bytes | PathLike | None = None,
     *,
     override: bool = False,
 ) -> bool:
