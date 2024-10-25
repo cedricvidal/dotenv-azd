@@ -29,4 +29,4 @@ jobs:
       run: hatch fmt --check
 
     - name: Tests
-      run: hatch run +py=${{ matrix.python-version }} test:test
+      run: hatch test -i py=${{ matrix.python-version }}
