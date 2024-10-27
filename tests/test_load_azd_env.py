@@ -1,6 +1,8 @@
 import subprocess
 from pathlib import Path
 
+from dotenv_azd import load_azd_env
+
 
 class AzdEnvNewError(Exception):
     pass
@@ -27,8 +29,6 @@ def _azd_env_set(key: str, value: str, *, cwd: Path) -> str:
 def test_load_azd_env(tmp_path: Path) -> None:
     from os import getenv
 
-    from dotenv_azd import load_azd_env
-
     with open(tmp_path / "azure.yaml", "w") as config:
         config.write("name: dotenv-azd-test\n")
 
@@ -40,8 +40,6 @@ def test_load_azd_env(tmp_path: Path) -> None:
 
 def test_load_azd_env_override(tmp_path: Path) -> None:
     from os import environ, getenv
-
-    from dotenv_azd import load_azd_env
 
     with open(tmp_path / "azure.yaml", "w") as config:
         config.write("name: dotenv-azd-test\n")
@@ -56,3 +54,16 @@ def test_load_azd_env_override(tmp_path: Path) -> None:
     var_set = load_azd_env(cwd=tmp_path, override=True)
     assert getenv("VAR1") == "OVERRIDE"
     assert var_set
+
+
+def test_load_azd_env_no_project_exists_error(tmp_path: Path) -> None:
+    from dotenv_azd import AzdNoProjectExistsError
+    try:
+        load_azd_env(cwd=tmp_path)
+        raise AssertionError("AzdNoProjectExistsError expected")
+    except AzdNoProjectExistsError:
+        pass
+
+
+def test_load_azd_env_ignore_errors(tmp_path: Path) -> None:
+    load_azd_env(cwd=tmp_path, ignore=True)
