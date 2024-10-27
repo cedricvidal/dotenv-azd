@@ -22,7 +22,7 @@ pip install dotenv-azd
 Create a new AZD env if you don't have one yet and set an initial variable value:
 
 ```
-azd init
+azd init MY_AZD_ENV
 azd env set VAR1 OVERRIDE
 ```
 
@@ -36,7 +36,7 @@ environ['VAR1'] = 'INITIAL'
 
 load_azd_env()
 
-print(getenv('AZURE_ENV_NAME')) # prints 'test', loaded from azd env
+print(getenv('AZURE_ENV_NAME')) # prints 'MY_AZD_ENV', loaded from azd env
 
 print(getenv('VAR1')) # prints 'INITIAL', was already in Python env
 ```

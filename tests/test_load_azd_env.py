@@ -32,9 +32,9 @@ def test_load_azd_env(tmp_path: Path) -> None:
     with open(tmp_path / "azure.yaml", "w") as config:
         config.write("name: dotenv-azd-test\n")
 
-    _azd_env_new("test", cwd=tmp_path)
+    _azd_env_new("MY_AZD_ENV", cwd=tmp_path)
     var_set = load_azd_env(cwd=tmp_path)
-    assert getenv("AZURE_ENV_NAME") is not None
+    assert getenv("AZURE_ENV_NAME") == "MY_AZD_ENV"
     assert var_set
 
 
@@ -47,9 +47,10 @@ def test_load_azd_env_override(tmp_path: Path) -> None:
         config.write("name: dotenv-azd-test\n")
 
     environ["VAR1"] = "INITIAL"
-    _azd_env_new("test", cwd=tmp_path)
+    _azd_env_new("MY_AZD_ENV", cwd=tmp_path)
     _azd_env_set("VAR1", "OVERRIDE", cwd=tmp_path)
     var_set = load_azd_env(cwd=tmp_path)
+    assert getenv("AZURE_ENV_NAME") == "MY_AZD_ENV"
     assert getenv("VAR1") == "INITIAL"
     assert var_set
     var_set = load_azd_env(cwd=tmp_path, override=True)
