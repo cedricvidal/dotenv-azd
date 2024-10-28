@@ -61,8 +61,7 @@ def load_azd_env(cwd: str | bytes | PathLike | None = None, *, override: bool = 
     except AzdError:
         if quiet:
             return False
-        else:
-            raise
+        raise
 
     config = StringIO(env_values)
     return load_dotenv(

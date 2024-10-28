@@ -64,16 +64,18 @@ def test_load_azd_env_no_project_exists_error(tmp_path: Path) -> None:
     with pytest.raises(AzdNoProjectExistsError, match="no project exists"):
         load_azd_env(cwd=tmp_path)
 
+
 def test_load_azd_env_azd_command_not_found_error(tmp_path: Path) -> None:
     from os import environ
 
     from dotenv_azd import AzdCommandNotFoundError
 
-    path = environ['PATH']
-    environ['PATH'] = ''
+    path = environ["PATH"]
+    environ["PATH"] = ""
     with pytest.raises(AzdCommandNotFoundError):
         load_azd_env(cwd=tmp_path)
-    environ['PATH'] = path
+    environ["PATH"] = path
+
 
 def test_load_azd_env_ignore_errors(tmp_path: Path) -> None:
     load_azd_env(cwd=tmp_path, quiet=True)
