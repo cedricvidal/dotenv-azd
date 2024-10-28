@@ -21,14 +21,14 @@ pip install dotenv-azd
 
 Create a new AZD env if you don't have one yet and set an initial variable value:
 
-```
+```console
 azd init MY_AZD_ENV
 azd env set VAR1 OVERRIDE
 ```
 
 In your Python code:
 
-```
+```python
 from dotenv_azd import load_azd_env
 from os import getenv, environ
 
@@ -41,13 +41,22 @@ print(getenv('AZURE_ENV_NAME')) # prints 'MY_AZD_ENV', loaded from azd env
 print(getenv('VAR1')) # prints 'INITIAL', was already in Python env
 ```
 
-**TIP**: You can also override variables in Python env:
+### Override mode
 
-```
+You can also override variables in Python env:
+
+```python
 load_azd_env(override=True)
 print(getenv('VAR1')) # prints 'OVERRIDE', loaded from azd env, overriding Python env
 ```
 
+### Quiet mode
+
+If you want to ignore errors when `azd` is not initialized or no `azd` environment is active, you can use the `quiet` parameter. This is useful when integrating with `azd` while avoiding dependency on it.
+
+```python
+load_azd_env(quiet=True)
+```
 
 ## License
 
