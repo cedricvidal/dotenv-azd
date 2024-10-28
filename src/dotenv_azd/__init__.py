@@ -41,14 +41,14 @@ def _azd_env_get_values(cwd: str | bytes | PathLike | None = None) -> str:
     return result.stdout
 
 
-def load_azd_env(cwd: str | bytes | PathLike | None = None, *, override: bool = False, ignore: bool = False) -> bool:
+def load_azd_env(cwd: str | bytes | PathLike | None = None, *, override: bool = False, quiet: bool = False) -> bool:
     """Reads azd env variables and then load all the variables found as environment variables.
 
     Parameters:
         cwd: Current working directory to run the `azd env get-values` command.
         override: Whether to override the system environment variables with the variables
             from the `.env` file.
-        ignore: Whether to ignore azd related errors and just silently load nothing
+        quiet: Whether to suppress azd related errors.
     Returns:
         Bool: True if at least one environment variable is set else False
 
@@ -59,7 +59,7 @@ def load_azd_env(cwd: str | bytes | PathLike | None = None, *, override: bool = 
     try:
         env_values = _azd_env_get_values(cwd)
     except AzdError:
-        if ignore:
+        if quiet:
             return False
         else:
             raise

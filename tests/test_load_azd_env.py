@@ -76,4 +76,4 @@ def test_load_azd_env_azd_command_not_found_error(tmp_path: Path) -> None:
     environ['PATH'] = path
 
 def test_load_azd_env_ignore_errors(tmp_path: Path) -> None:
-    load_azd_env(cwd=tmp_path, ignore=True)
+    load_azd_env(cwd=tmp_path, quiet=True)
