@@ -5,17 +5,23 @@
 [![PyPI - Python Version](https://img.shields.io/pypi/pyversions/dotenv-azd.svg)](https://pypi.org/project/dotenv-azd)
 ![PyPI - Downloads](https://img.shields.io/pypi/dd/dotenv-azd)
 
-This library allows to seamlessly integrate [Azure Developer CLI](https://learn.microsoft.com/en-us/azure/developer/azure-developer-cli/) (azd) environment variables into your Python application without needing to manually export them to an `.env` file.
+`dotenv-azd` allows seamless integration of [Azure Developer CLI](https://learn.microsoft.com/en-us/azure/developer/azure-developer-cli/) (`azd`) environment variables into your Python applications without the need to manually export them to an `.env` file. This can greatly enhance productivity and reduce potential errors, allowing for a smoother development experience.
 
-It uses the `azd` cli and the [python-dotenv](https://pypi.org/project/python-dotenv/) library.
+It leverages the `azd` CLI and the [python-dotenv](https://pypi.org/project/python-dotenv/) library.
 
-- [Why](#why)
+- [Why dotenv-azd](#why-dotenv-azd)
 - [Installation](#installation)
 - [Usage](#usage)
   - [Basic Usage](#basic-usage)
   - [Override Mode](#override-mode)
   - [Quiet Mode](#quiet-mode)
+- [Alternatives](#alternatives)
+- [Limitations](#limitations)
 - [License](#license)
+
+## Why dotenv-azd
+
+Integrating `azd` environment variables directly into your Python applications can streamline your development process. By avoiding the manual export to `.env` files, you can reduce overhead and minimize mistakes. This is especially useful when switching between different `azd` environments.
 
 ## Installation
 
