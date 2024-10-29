@@ -5,10 +5,16 @@
 [![PyPI - Python Version](https://img.shields.io/pypi/pyversions/dotenv-azd.svg)](https://pypi.org/project/dotenv-azd)
 ![PyPI - Downloads](https://img.shields.io/pypi/dd/dotenv-azd)
 
-This library provides a Python [python-dotenv](https://pypi.org/project/python-dotenv/) wrapper function that loads dotenv key value pairs from the currently selected [Azure Developer CLI](https://learn.microsoft.com/en-us/azure/developer/azure-developer-cli/) (azd) environment.
+This library allows to seamlessly integrate [Azure Developer CLI](https://learn.microsoft.com/en-us/azure/developer/azure-developer-cli/) (azd) environment variables into your Python application without needing to manually export them to an `.env` file.
 
+It uses the `azd` cli and the [python-dotenv](https://pypi.org/project/python-dotenv/) library.
+
+- [Why](#why)
 - [Installation](#installation)
 - [Usage](#usage)
+  - [Basic Usage](#basic-usage)
+  - [Override Mode](#override-mode)
+  - [Quiet Mode](#quiet-mode)
 - [License](#license)
 
 ## Installation
@@ -18,6 +24,8 @@ pip install dotenv-azd
 ```
 
 ## Usage
+
+### Basic Usage
 
 Create a new AZD env if you don't have one yet and set an initial variable value:
 
@@ -57,6 +65,16 @@ If you want to ignore errors when `azd` is not initialized or no `azd` environme
 ```python
 load_azd_env(quiet=True)
 ```
+
+## Alternatives
+
+The traditional approach to integrate `azd` environment variables is to export them to a `.env` file and load that file:
+
+```console
+azd env get-values > .env
+```
+
+This approach can create variable quoting issues and might lead to stale variables when switching between environments using `azd select`.
 
 ## License
 
