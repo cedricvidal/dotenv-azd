@@ -31,7 +31,7 @@ jobs:
       run: hatch fmt --check
 
     - name: Install azd
-      uses: Azure/setup-azd@v1.0.0
+      uses: Azure/setup-azd@v2.1.0
 
     - name: Tests
       run: hatch test -i py=${{ matrix.python-version }}

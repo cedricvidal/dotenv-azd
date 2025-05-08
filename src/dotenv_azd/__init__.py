@@ -26,9 +26,10 @@ E_CMD_NOT_FOUND = 127
 
 def _azd_env_get_values(cwd: str | bytes | PathLike | None = None) -> str:
     try:
-        result = run(["azd", "env", "get-values"], capture_output=True, text=True, cwd=cwd, check=True)
+        result = run(["azd", "env", "get-values"], capture_output=True, text=True, cwd=cwd, check=True)  # noqa: S607
     except FileNotFoundError as e:
-        raise AzdCommandNotFoundError("azd command not found, install it prior to using dotenv-azd") from e
+        msg = "azd command not found, install it prior to using dotenv-azd"
+        raise AzdCommandNotFoundError(msg) from e
     except CalledProcessError as e:
         if e.returncode == E_CMD_NOT_FOUND or (e.output and e.output.find("command not found") > 0):
             msg = "azd command not found, install it prior to using dotenv-azd"
