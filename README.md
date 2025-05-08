@@ -82,6 +82,10 @@ azd env get-values > .env
 
 This approach can create variable quoting issues and might lead to stale variables when switching between environments using `azd select`.
 
+## Contributing
+
+Make a PR to the repo. Run `hatch fmt --check` to make sure the code is correctly linted.
+
 ## License
 
 `dotenv-azd` is distributed under the terms of the [MIT](https://spdx.org/licenses/MIT.html) license.
